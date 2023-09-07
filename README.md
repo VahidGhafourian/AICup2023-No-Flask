@@ -38,7 +38,7 @@ Our team on this contest:
 - Zahra Nafarieh
 
 ## License
-For open source projects, say how it is licensed.
+GNU GPL v3.0
 
 ## Project status
 This project will update until the contest end
