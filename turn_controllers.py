@@ -40,7 +40,7 @@ def check_finish(main_game):
         if players_strategic_nodes_count[i] >= int(main_game.config["number_of_strategic_nodes_to_win"]):
             if main_game.debug:
                 main_game.print("player won because of having enough strategic nodes")
-            print("player ", str(i), " won because of having enough strategic nodes")
+            print("Player ", str(i), " won because of having enough strategic nodes.")
             scores = calculate_score(main_game)
             scores[i] += sum(scores)
             game_finished(main_game, scores)
@@ -49,8 +49,9 @@ def check_finish(main_game):
     if main_game.turn_number >= int(main_game.config["number_of_turns"]):
         if main_game.debug:
             main_game.print("game finished because of number of turns")
-        print("game finished because of number of turns")
         scores = calculate_score(main_game)
+        print("The game ended due to the completion of the number of turns and player", scores.index(max(scores)),
+              "won with a score of:", max(scores))
         game_finished(main_game, scores)
         return True
     return False
@@ -97,7 +98,6 @@ def game_finished(main_game, score):
         with open("debug_log/" + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".txt", "w") as debug_log_file:
             debug_log_file.write(main_game.debug_logs)
 
-import datetime
 
 def change_turn(main_game, c_ai, c_two, c_three):
     while True:
@@ -107,44 +107,47 @@ def change_turn(main_game, c_ai, c_two, c_three):
         # add the turn number to the logs
         if main_game.debug:
             # print("start turn:", main_game.turn_number)
-            main_game.print("----------------------------- start turn: " + str(main_game.turn_number)+"----------------------------")
-            main_game.print("player: "+str(player_id)+ ' -- start time '+ datetime.datetime.now().strftime("%H:%M:%S"))
+            main_game.print("----------------------------- start turn: " + str(
+                main_game.turn_number) + "----------------------------")
+            main_game.print(
+                "player: " + str(player_id) + ' -- start time ' + datetime.datetime.now().strftime("%H:%M:%S"))
             # print the owner and number of troops of each node at the beginning of the turn
             for i in main_game.nodes.values():
-                main_game.print(f"node {i.id}: owner: {i.owner.id if i.owner is not None else -1}, number of troops: {i.number_of_troops} , number of fort troops: {i.number_of_fort_troops}")
+                main_game.print(
+                    f"node {i.id}: owner: {i.owner.id if i.owner is not None else -1}, number of troops: {i.number_of_troops} , number of fort troops: {i.number_of_fort_troops}")
 
         # show number of troops that the player did not put on the map
         if main_game.debug:
-            main_game.print(f"player {player_id} has {main_game.player_turn.number_of_troops_to_place} troops to put on the map")
-        # request the player to play
-        print("Turn Number:", main_game.turn_number, ' ='*20)
+            main_game.print(
+                f"player {player_id} has {main_game.player_turn.number_of_troops_to_place} troops to put on the map")
+
+        print("Turn Number:", main_game.turn_number, ' =' * 20)
         # wait for the player to play
-        # input()
         if main_game.game_state == 2:
-            if player_id==0:
+            if player_id == 0:
                 c_ai.turn()
-            elif player_id==1:
+            elif player_id == 1:
                 c_two.turn()
-            elif player_id==2:
+            elif player_id == 2:
                 c_three.turn()
             else:
-                print('wrong id:'+str(player_id))
+                print('wrong id:' + str(player_id))
                 input()
         elif main_game.game_state == 1:
-            if player_id==0:
+            if player_id == 0:
                 c_ai.initializer_turn()
-            elif player_id==1:
+            elif player_id == 1:
                 c_two.initializer_turn()
-            elif player_id==2:
+            elif player_id == 2:
                 c_three.initializer_turn()
             else:
-                print('wrong id:'+str(player_id))
+                print('wrong id:' + str(player_id))
                 input()
         # end the turn to add the logs for client
         main_game.end_turn()
 
         if main_game.debug:
-            main_game.print("end turn: "+ datetime.datetime.now().strftime("%H:%M:%S"))
+            main_game.print("end turn: " + datetime.datetime.now().strftime("%H:%M:%S"))
         # check if the game is finished
         if check_finish(main_game):
             break

@@ -4,7 +4,8 @@
 from clients.game_client import Game_Client
 import random
 
-class Client_AI():
+
+class Client_Enemy_One():
     def __init__(self, kernel) -> None:
         self.flag = False
         self.kernel = kernel
@@ -111,6 +112,3 @@ class Client_AI():
             print(self.game.fort(max_node, 3))
             print(self.game.get_number_of_fort_troops())
             self.flag = True
-
-    def get_game(self):
-        return self.game

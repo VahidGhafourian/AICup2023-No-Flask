@@ -4,7 +4,8 @@
 from Kernel import Kernel
 from components.game import Game
 from clients.client_ai import Client_AI
-from clients.client_enemy import Client_Enemy
+from clients.client_enemy_one import Client_Enemy_One
+from clients.client_enemy_two import Client_Enemy_Two
 from turn_controllers import change_turn
 import os
 
@@ -44,8 +45,8 @@ def main():
     c_ai = Client_AI(kernel)
 
     # Build Enemy clients
-    c_two = Client_Enemy(kernel)
-    c_three = Client_Enemy(kernel)
+    c_two = Client_Enemy_One(kernel)
+    c_three = Client_Enemy_Two(kernel)
 
     change_turn(kernel.main_game, c_ai, c_two, c_three)
 

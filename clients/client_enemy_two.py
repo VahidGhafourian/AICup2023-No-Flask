@@ -5,7 +5,7 @@ from clients.game_client import Game_Client
 import random
 
 
-class Client_Enemy():
+class Client_Enemy_Two():
     def __init__(self, kernel) -> None:
         self.flag = False
         self.kernel = kernel
@@ -60,9 +60,6 @@ class Client_Enemy():
         for i in owner.keys():
             if owner[i] == self.game.get_player_id():
                 list_of_my_nodes.append(i)
-
-        with open('log.txt', 'at') as logfile:
-            logfile.write(str(random.choice(list_of_my_nodes)))
 
         print(self.game.put_troop(random.choice(list_of_my_nodes),
                                   self.game.get_number_of_troops_to_put()['number_of_troops']))
