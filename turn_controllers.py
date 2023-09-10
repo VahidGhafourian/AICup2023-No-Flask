@@ -26,6 +26,10 @@ def calculate_score(main_game):
 
 
 def check_finish(main_game):
+    # check if the game pass the minimum number of turns
+    if main_game.turn_number < int(main_game.config["minimum_number_of_turns"]):
+        return
+
     # find the number of strategic nodes for each player
     players_strategic_nodes_count = []
     for player in main_game.players.values():
