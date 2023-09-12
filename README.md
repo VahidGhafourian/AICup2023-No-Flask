@@ -14,14 +14,20 @@ and easily develop RL algorithms.
     ```
     python main.py
     ```
-- [ ] You can change clients code on 'clients' folder
+- [ ] Or run `main.py` with flag `-m map1.json` for running the whole game with selected map:
+  ```
+  python main.py -m map1.json
+  ```
+- [ ] You can change clients code on 'player0', 'player1', 'player2' folder
     ```
-    ls /clients/
-    - > client_ai.py (write your algorithm here)
-    - > client_enemy.py (write your enemy algorithm here)
-    - > game_client.py (you don't need to change this file)
+    ls /player0/
+    - > initialize.py (Don't change this one. It's for connecting to kernel)
+    - > main.py (write your algorithm here)
     ```
-    As you know we have two methods (`initializer_turn` & `turn`) on each client for two
+    ```
+    Write your enemy algorithm in /player1/main.py and /player2/main.py
+    ```
+    As you know we have two methods to develop our code: `initializer` & `turn` on each client for two
     main phases of the game.
 
 ## If you have any problem
