@@ -12,6 +12,7 @@ player_id = 0
 
 def login(main_game):
     global player_id
+    print(player_id)
     # make sure there is no more than number_of_players players
     if player_id >= main_game.config['number_of_players']:
         output_dict = {'error': 'game players is full'}
@@ -26,3 +27,7 @@ def login(main_game):
     main_game.players[player_id].number_of_troops_to_place = main_game.config['initial_troop']
     player_id += 1
     return output_dict
+
+def reset_global_player_id():
+    global player_id
+    player_id = 0

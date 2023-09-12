@@ -6,7 +6,11 @@ from src.tools.read_config import read_config
 from src.turn_controllers.change_turn import change_turn
 import os
 import argparse
-
+from src.components.client_game import ClientGame
+from player0.initialize import initializer as initializer_p0
+from player1.initialize import initializer as initializer_p1
+from player2.initialize import initializer as initializer_p2
+from src.blueprints.login import reset_global_player_id
 
 def main(selected_map):
 
@@ -40,21 +44,18 @@ def main(selected_map):
     main_game.debug = main_game.config['debug']
 
     # Build Clients
-    from src.components.client_game import ClientGame
-    from player0.initialize import initializer as initializer_p0
-    from player1.initialize import initializer as initializer_p1
-    from player2.initialize import initializer as initializer_p2
-
     client_game = ClientGame(main_game)
 
     initializer_p0(client_game)
     initializer_p1(client_game)
     initializer_p2(client_game)
-    initializer_p2(client_game)
 
     # Run the server
     if main_game.game_started:
         change_turn(main_game, client_game)
+
+    reset_global_player_id()
+    del main_game, client_game
 
 if __name__ == '__main__':
 
