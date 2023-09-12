@@ -4,7 +4,7 @@
 
 class Player:
     def __init__(self, id) -> None:
-        self.nodes = [] # list of Node objects that owned by this player
+        self.nodes = [] # list of Node objects that owned by this player 
         self.id = id # each player has an id that is unique in the game
         self.number_of_troops_to_place = 0 # number of troops that the player have but not placed on the map
         self.port = "" # the port that the player should run a server on it to listen to the requests

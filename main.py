@@ -1,29 +1,27 @@
 # author: Vahid Ghafourian
 # Date: 2023/09/06
 
-from Kernel import Kernel
-from components.game import Game
-from clients.client_ai import Client_AI
-from clients.client_enemy_one import Client_Enemy_One
-from clients.client_enemy_two import Client_Enemy_Two
-from turn_controllers import change_turn
+from src.components.game import Game
+from src.tools.read_config import read_config
+from src.turn_controllers.change_turn import change_turn
 import os
+import argparse
 
-import json
 
-def read_config():
-    with open('config.json', 'r') as f:
-        config = json.load(f)
-    return config
+def main(selected_map):
 
-def main():
+    # define argument parser
+    parser = argparse.ArgumentParser(description='choose map to play on')
+    parser.add_argument('-m', '--map', type=str, help='choose map to play on')
+    args = parser.parse_args()
+
     # read map file
-    kernel_main_game = Game()
+    main_game = Game()
     # ask player to choose map from the list of maps
     maps = os.listdir('maps')
 
     ## get the selected map from the player
-    selected_map = '3'
+    selected_map = str(maps.index(args.map)) if args.map != None else str(selected_map)
 
     while selected_map.isdigit() == False or int(selected_map) >= len(maps) or int(selected_map) < 0:
         ## show the list of maps from the maps folder
@@ -33,24 +31,30 @@ def main():
         selected_map = input("Enter the number of the map you want to choose: ")
 
     ## read the selected map
-    kernel_main_game.read_map('maps/'+maps[int(selected_map)])
+    main_game.read_map('maps/'+maps[int(selected_map)])
 
     # read config
-    kernel_config = read_config()
+    main_game.config = read_config()
 
-    # Build Kernel
-    kernel = Kernel(kernel_main_game, kernel_config)
+    # set the debug variable to True or False to see the debug messages and generate debug logs
+    main_game.debug = main_game.config['debug']
 
-    # Build AI Client
-    c_ai = Client_AI(kernel)
+    # Build Clients
+    from src.components.client_game import ClientGame
+    from player0.initialize import initializer as initializer_p0
+    from player1.initialize import initializer as initializer_p1
+    from player2.initialize import initializer as initializer_p2
 
-    # Build Enemy clients
-    c_two = Client_Enemy_One(kernel)
-    c_three = Client_Enemy_Two(kernel)
+    client_game = ClientGame(main_game)
 
-    change_turn(kernel.main_game, c_ai, c_two, c_three)
+    initializer_p0(client_game)
+    initializer_p1(client_game)
+    initializer_p2(client_game)
+
+    # Run the server
+    if main_game.game_started:
+        change_turn(main_game, client_game)
 
 if __name__ == '__main__':
-    main()
 
-
+    main(None)
