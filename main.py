@@ -50,6 +50,7 @@ def main(selected_map):
     initializer_p0(client_game)
     initializer_p1(client_game)
     initializer_p2(client_game)
+    initializer_p2(client_game)
 
     # Run the server
     if main_game.game_started:
