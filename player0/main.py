@@ -35,7 +35,6 @@ def initializer(game: ClientGame):
     node = random.choice(nodes)
     game.put_one_troop(node)
     print("3-  putting one troop on", node)
-    
 
 
 def turn(game: ClientGame):

@@ -4,7 +4,6 @@
 import json
 import datetime
 import os
-import random
 
 def calculate_score(main_game):
     # (number of nodes * 1000) + (number of troops)+ (3000/score of strategic nodes)
@@ -39,12 +38,16 @@ def check_finish(main_game) -> bool:
             scores = calculate_score(main_game)
             scores[i] += sum(scores)
             game_finished(main_game, scores)
+            print("player", "{{", main_game.players[i].name, "}}",
+                  "won because of having enough strategic nodes. scores:", scores)
             return True
     # check if the game is finished
     if main_game.turn_number >= int(main_game.config["number_of_turns"]):
         if main_game.debug:
             main_game.print("game finished because of number of turns")
         scores = calculate_score(main_game)
+        print("game finished because of number of turns. and player",
+              "{{", main_game.players[scores.index(max(scores))].name, "}}", "wins. scores: ",  scores)
         game_finished(main_game, scores)
         return True
     return False

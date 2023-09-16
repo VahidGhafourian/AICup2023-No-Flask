@@ -61,11 +61,11 @@ class Game:
         if self.turn_number > int(self.config["number_of_players"]) * int(self.config["initial_troop"]):
             self.game_state = 2
 
-    def add_player(self, player_id: int) -> None:
+    def add_player(self, player_id: int, name: str, initializer, turn) -> None:
         # add a player to the game if it doesn't exist
         # this function will generate a new player object and add it to the players dictionary
         if player_id not in self.players:
-            self.players[player_id] = Player(player_id)
+            self.players[player_id] = Player(player_id, name, initializer, turn)
 
     def read_map(self, map_file: str) -> None:
         # read the map from the json file and create the nodes and initialize them  

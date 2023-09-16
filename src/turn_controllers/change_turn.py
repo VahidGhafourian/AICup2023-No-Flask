@@ -8,12 +8,6 @@
 import time
 from src.turn_controllers.check_finish import check_finish
 import datetime
-from player0.main import initializer as initializer_p0
-from player0.main import turn as turn_p0
-from player1.main import initializer as initializer_p1
-from player1.main import turn as turn_p1
-from player2.main import initializer as initializer_p2
-from player2.main import turn as turn_p2
 
 
 def change_turn(main_game, client_game):
@@ -40,25 +34,16 @@ def change_turn(main_game, client_game):
         print("Turn Number:", main_game.turn_number, ' =' * 20)
         # wait for the player to play
         if main_game.game_state == 2:
-            if player_id == 0:
-                turn_p0(client_game)
-            elif player_id == 1:
-                turn_p1(client_game)
-            elif player_id == 2:
-                turn_p2(client_game)
-            else:
-                print('wrong id:' + str(player_id))
-            # time.sleep(main_game.config["turn_time"])
+            try:
+                main_game.players[player_id].turn(client_game)
+            except Exception as e:
+                raise Exception('Wrong player id:' + str(player_id))
         elif main_game.game_state == 1:
-            if player_id == 0:
-                initializer_p0(client_game)
-            elif player_id == 1:
-                initializer_p1(client_game)
-            elif player_id == 2:
-                initializer_p2(client_game)
-            else:
-                print('wrong id:' + str(player_id))
-            # time.sleep(main_game.config["init_time"])
+            try:
+                main_game.players[player_id].initializer(client_game)
+            except Exception as e:
+                raise Exception('Wrong player id:' + str(player_id))
+
         # end the turn to add the logs for client
         main_game.end_turn()
 

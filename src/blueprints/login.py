@@ -10,7 +10,7 @@
 player_id = 0
 
 
-def login(main_game):
+def login(main_game, name, initializer, turn):
     global player_id
     print(player_id)
     # make sure there is no more than number_of_players players
@@ -23,7 +23,7 @@ def login(main_game):
                    'message': 'login successful'}
 
     # initialize the player
-    main_game.add_player(player_id)
+    main_game.add_player(player_id, name, initializer, turn)
     main_game.players[player_id].number_of_troops_to_place = main_game.config['initial_troop']
     player_id += 1
     return output_dict
