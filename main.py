@@ -67,8 +67,7 @@ def main(selected_map):
     start_p2(client_game)
 
     # Run the server
-    if main_game.game_started:
-        change_turn(main_game, client_game)
+    change_turn(main_game, client_game)
 
     reset_global_player_id()
     del main_game, client_game
