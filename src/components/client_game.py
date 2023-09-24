@@ -152,4 +152,4 @@ class ClientGame:
         """
         node_id = self.__check_int(node_id)
         troop_count = self.__check_int(troop_count)
-        self.output_handler(self.blueprints.fort(node_id, troop_count, self.main_game, self.get_player_id()['player_id']))
+        return self.output_handler(self.blueprints.fort(node_id, troop_count, self.main_game, self.get_player_id()['player_id']))
